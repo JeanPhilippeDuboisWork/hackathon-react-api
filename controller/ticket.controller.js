@@ -1,11 +1,27 @@
 const db = require("../models");
 const Ticket = db.tickets;
 
-
+exports.countAll = (req, res) => {
+  var filter = {};
+  Ticket.find(filter)
+    .then(data => {
+      var total = 0;
+      data.forEach(element => {
+        total = parseInt(element.nbTickets) + total;
+      });
+      res.send(JSON.stringify(total));
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving Ticket."
+      });
+    });
+};
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-    const userId = req.query.userId;
-    const condition = userId ? { userId: { $regex: new RegExp(userId), $options: "i" } } : {};
+    var userId = req.query.userId;
+    var condition = userId ? { userId: { $regex: new RegExp(userId), $options: "i" } } : {};
 
     Ticket.find(condition)
       .then(data => {
@@ -21,7 +37,7 @@ exports.findAll = (req, res) => {
   };
 
   exports.findByUserID = (req, res) => {
-    const userId = req.query.userId;
+    var userId = req.query.userId;
 
     Ticket.find(userId)
       .then(data => {
@@ -36,7 +52,7 @@ exports.findAll = (req, res) => {
   };
 // Find a single Ticket with an id
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+    var id = req.params.id;
   
     Ticket.findById(id)
       .then(data => {
@@ -57,7 +73,7 @@ exports.update = (req, res) => {
       });
     }
   
-    const id = req.params.id;
+    var id = req.params.id;
   
     Ticket.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
       .then(data => {
@@ -75,7 +91,7 @@ exports.update = (req, res) => {
   };
 
   exports.delete = (req, res) => {
-    const id = req.params.id;
+    var id = req.params.id;
   
     Ticket.findByIdAndRemove(id)
       .then(data => {
@@ -110,3 +126,4 @@ exports.update = (req, res) => {
         });
       });
   };
+

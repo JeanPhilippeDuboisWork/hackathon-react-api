@@ -29,18 +29,24 @@ exports.create = (req, res) => {
   user
     .save(user)
     .then(data => {
-      const ticket = new Ticket({
+      if (nbTickets > 3)
+      {
+        res.status(500).send({
+          message:
+            err.message || "Too many tickets."
+        });
+      }
+        var ticket = new Ticket({
           userId: data.id,
           nbTickets: data.nbTickets,
-          price: "50000"
+          price:500000
       })
-      ticket.save(ticket).then(data => {res.send(data);})
-
+      ticket.save(ticket).then(data => {res.send(data);})  
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial."
+          err.message || "Some error occurred while creating the Tickets."
       });
     });
 };
@@ -58,7 +64,7 @@ exports.findAll = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving User."
+          err.message || "Some error occurred while retrieving Ticket."
       });
     });
 };

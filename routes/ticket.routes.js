@@ -5,8 +5,13 @@ module.exports = app => {
     // Find a ticket by user id
     router.post("/:id", tickets.findByUserID)
 
+    // Find a ticket by user id
+    router.post("/:id", tickets.findByUserID)
+
     // Retrieve all tickets
     router.get("/", tickets.findAll);
+        // Retrieve all tickets
+    router.get("/count", tickets.countAll);
 
     // Retrieve a single ticket
     router.get("/:id", tickets.findOne);

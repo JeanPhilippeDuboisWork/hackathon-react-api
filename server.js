@@ -30,6 +30,7 @@ db.mongoose
 const PORT = process.env.PORT || 8080;
 require("./routes/user.routes")(app);
 require("./routes/ticket.routes")(app);
+require("./routes/cart.routes")(app);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
