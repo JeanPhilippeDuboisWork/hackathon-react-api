@@ -1,22 +1,25 @@
-const { stringify } = require("querystring");
+const mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
+
 
 module.exports = mongoose => {
-  var schema = mongoose.Schema(
-    {
+  const schema = mongoose.Schema({
       nbTickets: String,
       firstName: String,
       lastName: String,
       email: String,
-      telephone : String,
+      phone: String,
       city: String,
-      addressFirst: String,
-      addressSecond: String,
+      streetLine: String,
+      secondStreetLine: String,
       postalCode: String,
       province: String,
       country: String,
-      noCreditCard: String,
+      creditCardNumber: String,
     },
-    { timestamps: true }
+    {
+      timestamps: true
+    }
   );
 
   const User = mongoose.model("user", schema);

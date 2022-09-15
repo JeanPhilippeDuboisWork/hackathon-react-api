@@ -1,23 +1,23 @@
 module.exports = app => {
-    const tickets = require("../controller/ticket.js");
+    const tickets = require("../controller/ticket.controller");
+    let router = require("express").Router();
   
-    var router = require("express").Router();
-  
-    // FindByUserId
+    // Find a ticket by user id
     router.post("/:id", tickets.findByUserID)
-    // Retrieve all Tutorials
+
+    // Retrieve all tickets
     router.get("/", tickets.findAll);
 
-    // Retrieve a single Tutorial with id
+    // Retrieve a single ticket
     router.get("/:id", tickets.findOne);
   
-    // Update a Tutorial with id
+    // Update a ticket
     router.put("/:id", tickets.update);
   
-    // Delete a Tutorial with id
+    // Delete a ticket with id
     router.delete("/:id", tickets.delete);
   
-    // Create a new Tutorial
+    // Create a new ticket
     router.delete("/", tickets.deleteAll);
   
     app.use('/api/ticket', router);

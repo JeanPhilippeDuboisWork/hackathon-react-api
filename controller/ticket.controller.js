@@ -1,13 +1,11 @@
-const { tickets } = require("../models/ticket");
 const db = require("../models");
-const ticket = require("../models/ticket");
 const Ticket = db.tickets;
 
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-    const idUTilisateur = req.query.idUTilisateur;
-    var condition = idUTilisateur ? { idUTilisateur: { $regex: new RegExp(idUTilisateur), $options: "i" } } : {};
+    const userId = req.query.userId;
+    const condition = userId ? { userId: { $regex: new RegExp(userId), $options: "i" } } : {};
 
     Ticket.find(condition)
       .then(data => {
@@ -23,10 +21,9 @@ exports.findAll = (req, res) => {
   };
 
   exports.findByUserID = (req, res) => {
-    const idUTilisateur = req.query.idUTilisateur;
-    var condition = email ? { email: { $regex: new RegExp(email), $options: "i" } } : {};
+    const userId = req.query.userId;
 
-    Ticket.find(idUTilisateur = idUTilisateur)
+    Ticket.find(userId)
       .then(data => {
         res.send(data);
       })
@@ -84,11 +81,11 @@ exports.update = (req, res) => {
       .then(data => {
         if (!data) {
           res.status(404).send({
-            message: `Cannot delete User with id=${id}. Maybe User was not found!`
+            message: `Cannot delete Ticket with id=${id}. Maybe Ticket was not found!`
           });
         } else {
           res.send({
-            message: "User was deleted successfully!"
+            message: "Ticket was deleted successfully!"
           });
         }
       })
@@ -103,13 +100,13 @@ exports.update = (req, res) => {
     Ticket.deleteMany({})
       .then(data => {
         res.send({
-          message: `${data.deletedCount} Users were deleted successfully!`
+          message: `${data.deletedCount} Tickets were deleted successfully!`
         });
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while removing all users."
+            err.message || "Some error occurred while removing all Tickets."
         });
       });
   };
