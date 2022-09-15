@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const dotenv = require('dotenv').config();
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -7,6 +8,11 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+var corsOptions = {
+  origin: "http://localhost:300"
+};
+
+app.use(cors(corsOptions));
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the API." });
